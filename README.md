@@ -154,7 +154,7 @@ FROM Spotify
 ```
 
 
-## Technology Stack
+**Technology Stack**
 - **Database**: PostgreSQL
 - **SQL Queries**: DDL, DML, Aggregations, Joins, Subqueries, Window Functions
 - **Tools**: pgAdmin 4 (or any SQL editor), PostgreSQL
