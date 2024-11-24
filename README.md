@@ -77,18 +77,83 @@ After importing the data, I utilized a series of SQL queries to explore and anal
 ---
 
 ### Beginner Level Queries
-1. Retrieve the names of all tracks that have more than 1 billion streams.
-2. List all albums along with their respective artists.
-3. Get the total number of comments for tracks where `licensed = TRUE`.
-4. Find all tracks that belong to the album type `single`.
-5. Count the total number of tracks by each artist.
+**Retrieve the names of all tracks that have more than 1 billion streams** 
+```sql
+SELECT * from spotify 
+WHERE stream > 1000000000;
+```
+
+**List all albums along with their respective artists.**
+```sql
+SELECT DISTINCT album, artist 
+FROM spotify;
+```
+**Get the total number of comments for tracks where `licensed = TRUE`.**
+```sql
+SELECT SUM(comments) as total_comments
+FROM spotify
+WHERE licensed = "TRUE";
+```
+
+**Find all tracks that belong to the album type `single`.**
+```sql
+SELECT * FROM spotify 
+WHERE album_type = 'single';
+```
+
+**Count the total number of tracks by each artist.**
+```sql
+SELECT artist, ---1 
+COUNT(*) as total_no_songs ---2
+FROM spotify 
+GROUP BY 1
+ORDER BY 2;
+```
 
 ### Intermediate Level Queries
-1. Calculate the average danceability of tracks in each album.
-2. Find the top 5 tracks with the highest energy values.
-3. List all tracks along with their views and likes where `official_video = TRUE`.
-4. For each album, calculate the total views of all associated tracks.
-5. Retrieve the track names that have been streamed on Spotify more than YouTube.
+**Calculate the average danceability of tracks in each album.**
+```sql
+SELECT album,
+AVG(danceability) as average_danceability
+FROM spotify 
+GROUP BY 1
+ORDER BY 2 DESC;
+```
+
+**Find the top 5 tracks with the highest energy values.**
+```sql
+SELECT 
+	track,
+	MAX(energy)
+FROM spotify 
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
+```
+
+**List all tracks along with their views and likes where `official_video = TRUE`.**
+```sql
+SELECT 
+track,
+SUM(views) as total_views,
+SUM(likes) as total_likes
+FROM spotify 
+WHERE official_video = 'TRUE'
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
+```
+
+**For each album, calculate the total views of all associated tracks.**
+```sql
+SELECT album, 
+track,
+SUM(views) as total_views
+FROM spotify
+GROUP BY 1, 2
+ORDER BY 3 DESC;
+```
+
 
 ### Advanced Level Queries
 1. **Find the top 3 most-viewed tracks for each artist using window functions.**
@@ -159,7 +224,21 @@ SELECT
 FROM Spotify
 	ORDER BY SUM(likes) OVER (ORDER BY views) DESC;
 ```
-
+6. **Retrieve the track names that have been streamed on Spotify more than YouTube.**
+```sql
+SELECT * FROM 
+(SELECT 
+track,
+COALESCE(SUM(CASE WHEN most_played_on = 'Youtube' THEN stream END), 0) as streamed_on_youtube,
+COALESCE(SUM(CASE WHEN most_played_on = 'Spotify' THEN stream END), 0) as streamed_on_spotify
+FROM spotify
+GROUP BY 1
+) as t1
+WHERE 
+	streamed_on_spotify > streamed_on_youtube
+	AND 
+	streamed_on_youtube  <> 0;
+```
 **Key Findings**
 
 **Track and Streaming Insights**
