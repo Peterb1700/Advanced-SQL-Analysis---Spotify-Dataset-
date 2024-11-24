@@ -160,5 +160,25 @@ FROM Spotify
 	ORDER BY SUM(likes) OVER (ORDER BY views) DESC;
 ```
 
+**Key Findings**
+
+**Track and Streaming Insights**
+385 tracks have over 1 billion streams; only Shape of You and Blinding Lights exceed 3 billion streams.
+3,579 tracks are streamed more on YouTube, while 155 tracks are streamed more on Spotify.
+
+**Top Tracks**
+Tracks with the highest cumulative likes and views include Despacito, Shape of You, and See You Again.
+The top five tracks by energy (1.0) are all by Rain Fruits Sounds.
+
+**Artist and Album Highlights**
+Most tracks by a single artist: 10 tracks, while many have just one.
+Adele's top tracks: Rolling in the Deep, Someone Like You, and When We Were Young.
+The album White Noise has the largest energy difference (0.9) between tracks.
+
+**Cleaning and Quality Checks**
+Two tracks with 0 duration were identified and removed for data accuracy.
+Tracks with above-average liveness or high energy-to-liveness ratios stand out as unique in performance metrics.
+
+
 
 
