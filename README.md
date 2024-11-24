@@ -153,6 +153,7 @@ FROM Spotify
 	ORDER BY SUM(likes) OVER (ORDER BY views) DESC;
 ```
 
+
 ## Technology Stack
 - **Database**: PostgreSQL
 - **SQL Queries**: DDL, DML, Aggregations, Joins, Subqueries, Window Functions
