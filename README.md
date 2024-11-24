@@ -151,9 +151,8 @@ WHERE energy_liveness_ratio > 1.2
 ORDER BY 2 DESC
 ```
 5. **Calculate the cumulative sum of likes for tracks ordered by the number of views, using window functions.**
----sql
-SELECT * FROM Spotify ;
 
+---sql
 SELECT 
 	track,
 	SUM(likes) OVER (ORDER BY views) AS cumulative_sum
