@@ -263,7 +263,6 @@ WHERE
 	AND 
 	streamed_on_youtube  <> 0
 ```
-```
 
 **Key Findings**
 
