@@ -62,6 +62,26 @@ Data Cleaning:
 Tracks with zero duration were identified and removed to maintain the dataset's integrity.
 This initial exploration helped validate the dataset's structure, identify anomalies, and prepare it for more in-depth analysis.
 
+```
+SELECT * FROM spotify 
+WHERE duration_min = 0
+
+```
+
+***The above query above identified the two records with zero duration.***
+
+```
+
+DELETE * FROM spotify 
+WHERE duration_min = 0
+
+```
+
+***The above query deleted the two records with zero duration.***
+
+```
+
+
 ### Querying the Data
 After importing the data, I utilized a series of SQL queries to explore and analyze it comprehensively. These queries are thoughtfully categorized into beginner, intermediate, and advanced levels, showcasing my proficiency across the full spectrum of SQL expertise.
 
