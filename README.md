@@ -63,6 +63,9 @@ Tracks with zero duration were identified and removed to maintain the dataset's 
 This initial exploration helped validate the dataset's structure, identify anomalies, and prepare it for more in-depth analysis.
 
 ```
+
+
+```
 SELECT * FROM spotify 
 WHERE duration_min = 0
 
