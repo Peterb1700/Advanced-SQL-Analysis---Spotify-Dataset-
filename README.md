@@ -248,6 +248,8 @@ FROM Spotify
 6. **Retrieve all track names that have been streamed on Spotify more than Youtube (CTE and CASE statements)
 RETURNED 155 rows where spotify is streamed more. RETURNED 3579 for where youtube is streamed more (inversed).**
 
+```
+
 SELECT * FROM 
 (SELECT 
 track,
