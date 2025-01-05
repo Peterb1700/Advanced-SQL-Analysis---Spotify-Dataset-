@@ -91,7 +91,7 @@ This returned 14,178 distinct albums with their associated artist.**
 SELECT DISTINCT album, artist 
 FROM spotify;
 ```
-**Get the total number of comments for tracks where `licensed = TRUE`
+**Get the total number of comments for tracks where `licensed = TRUE`.
 This returned 497,015,695.**
 ```sql
 SELECT SUM(comments) as total_comments
@@ -99,7 +99,7 @@ FROM spotify
 WHERE licensed = "TRUE";
 ```
 
-**Find all tracks that belong to the album type `single.
+**Find all tracks that belong to the album type `single`.
 This returned 4,973 tracks.**
 ```sql
 SELECT * FROM spotify 
@@ -107,7 +107,7 @@ WHERE album_type = 'single';
 ```
 
 **Count the total number of tracks by each artist.
-This returned 2,074, Highest total tracks were 10, lowest was 1.**
+This returned 2,074. Highest total tracks were 10, lowest was 1.**
 ```sql
 SELECT artist, ---1 
 COUNT(*) as total_no_songs ---2
@@ -139,8 +139,8 @@ ORDER BY 2 DESC
 LIMIT 5;
 ```
 
-**List top 5 tracks along with their views and likes where `official_video = TRUE`
-Returns Despacito, See You Again, Shape of You, Calma-Remix, and This is What You Came For in order.**
+**List top 5 tracks along with their views and likes where `official_video = TRUE`.
+This returns Despacito, See You Again, Shape of You, Calma-Remix, and This is What You Came For in order.**
 ```sql
 SELECT 
 track,
