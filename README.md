@@ -77,31 +77,36 @@ After importing the data, I utilized a series of SQL queries to explore and anal
 ---
 
 ### Beginner Level Queries
-**Retrieve the names of all tracks that have more than 1 billion streams** 
+**Retrieve the names of all tracks that have more than 1 billion streams.
+This returned 385 tracks.** 
 ```sql
 SELECT * from spotify 
 WHERE stream > 1000000000;
 ```
 
-**List all albums along with their respective artists.**
+**List all albums along with their respective artists. 
+This returned 14,178 distinct albums with their associated artist.**
 ```sql
 SELECT DISTINCT album, artist 
 FROM spotify;
 ```
-**Get the total number of comments for tracks where `licensed = TRUE`.**
+**Get the total number of comments for tracks where `licensed = TRUE`
+This returned 497,015,695.**
 ```sql
 SELECT SUM(comments) as total_comments
 FROM spotify
 WHERE licensed = "TRUE";
 ```
 
-**Find all tracks that belong to the album type `single`.**
+**Find all tracks that belong to the album type `single.
+This returned 4,973 tracks.**
 ```sql
 SELECT * FROM spotify 
 WHERE album_type = 'single';
 ```
 
-**Count the total number of tracks by each artist.**
+**Count the total number of tracks by each artist.
+This returned 2,074, Highest total tracks were 10, lowest was 1.**
 ```sql
 SELECT artist, ---1 
 COUNT(*) as total_no_songs ---2
@@ -111,7 +116,8 @@ ORDER BY 2;
 ```
 
 ### Intermediate Level Queries
-**Calculate the average danceability of tracks in each album.**
+**Calculate the average danceability of tracks in each album.
+Highest average danceability was 0.975.**
 ```sql
 SELECT album,
 AVG(danceability) as average_danceability
@@ -120,7 +126,8 @@ GROUP BY 1
 ORDER BY 2 DESC;
 ```
 
-**Find the top 5 tracks with the highest energy values.**
+**Find the top 5 tracks with the highest energy values.
+This returned 5 tracks all by the same artist, “Rain Fruits Sounds” with an energy value of 1.0.**
 ```sql
 SELECT 
 	track,
@@ -131,7 +138,8 @@ ORDER BY 2 DESC
 LIMIT 5;
 ```
 
-**List all tracks along with their views and likes where `official_video = TRUE`.**
+**List top 5 tracks along with their views and likes where `official_video = TRUE`
+Returns Despacito, See You Again, Shape of You, Calma-Remix, and This is What You Came For in order.**
 ```sql
 SELECT 
 track,
@@ -144,7 +152,8 @@ ORDER BY 2 DESC
 LIMIT 5;
 ```
 
-**For each album, calculate the total views of all associated tracks.**
+**For each album, calculate the total views of all associated tracks.
+Returns Despacito, See You Again, Lean On, Shape of You, Calma-Remix in order.**
 ```sql
 SELECT album, 
 track,
@@ -156,7 +165,9 @@ ORDER BY 3 DESC;
 
 
 ### Advanced Level Queries
-1. **Find the top 3 most-viewed tracks for each artist using window functions.**
+1. **Find the top 3 most-viewed tracks for each artist using window functions.
+This gives us the top 3 songs per each artist. For example Adam Levine: Lost Stars, Lifestyle, and Ojala.
+Adele: Rolling in the Deep, Someone Like You, When We Were Young.**
 ```sql
 WITH ranking_artist
 AS
@@ -183,7 +194,10 @@ FROM spotify
 WHERE liveness > (SELECT AVG(liveness) FROM spotify);
 ```
 
-3.  **Use a `WITH` clause to calculate the difference between the highest and lowest energy values for tracks in each album.**
+3.  **Use a `WITH` clause to calculate the difference between the highest and lowest energy values for tracks in each album.
+Returns the energy difference between albums in highest to lowest order. White Noise- 0.9, Spotify Singles - Holiday - 0.84,
+Spotify Singles, 0.82, Undertale Soundtrack - 0.816, Making Mirrors - 0.81**
+
 ```sql
 WITH cte
 AS
@@ -201,7 +215,10 @@ FROM cte
 ORDER BY 2 DESC
 ```
    
-4. **Find tracks where the energy-to-liveness ratio is greater than 1.2.**
+4. **Find tracks where the energy-to-liveness ratio is greater than 1.2.
+Returns tracks with a energy/liveness ratio higher than 1.2 in highest to lowest order. 
+Take It - 59.11, Verano Azul - 58, Salvavidas - 57.66, Ants Marching - 54.52, Eres Mi Sueno - 51.38**
+
 ```sql
 WITH cte2
 AS
@@ -215,7 +232,9 @@ SELECT * FROM cte2
 WHERE energy_liveness_ratio > 1.2
 ORDER BY 2 DESC
 ```
-5. **Calculate the cumulative sum of likes for tracks ordered by the number of views, using window functions.**
+
+5. **Calculate the cumulative sum of likes for tracks ordered by the number of views, using window functions.
+	Returns Despacito, Shape of You, See You Again, Wheels On the Bus, Uptown Funk.**
 
 ```sql
 SELECT 
@@ -224,8 +243,10 @@ SELECT
 FROM Spotify
 	ORDER BY SUM(likes) OVER (ORDER BY views) DESC;
 ```
-6. **Retrieve the track names that have been streamed on Spotify more than YouTube.**
-```sql
+
+6. **Retrieve all track names that have been streamed on Spotify more than Youtube (CTE and CASE statements)
+RETURNED 155 rows where spotify is streamed more. RETURNED 3579 for where youtube is streamed more (inversed).**
+
 SELECT * FROM 
 (SELECT 
 track,
@@ -237,8 +258,10 @@ GROUP BY 1
 WHERE 
 	streamed_on_spotify > streamed_on_youtube
 	AND 
-	streamed_on_youtube  <> 0;
+	streamed_on_youtube  <> 0
 ```
+```
+
 **Key Findings**
 
 **Track and Streaming Insights**
